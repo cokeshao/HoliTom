@@ -52,14 +52,22 @@ class LlavaMetaForCausalLM_holitom(ABC):
     
     def select_static_windows(self, feature_sim, batch_size, tau, max_window_size):
         # pruned_static_count[s,e]
-        pruned_static_count = torch.zeros((batch_size, batch_size), device=feature_sim.device)
-        for start in range(0, batch_size):
-            for end in range(start+1, batch_size):
-                static_feature_count = torch.all(
-                    feature_sim[start:end, :] > tau, dim=0
-                ).sum().item()
-                pruned_static_count[start, end] = static_feature_count * (end - start)  # window_len = end - start + 1
+        def get_pruned_static_count_vectorized(feature_sim, batch_size, tau):
+            similarity_matrix = torch.ones((batch_size, batch_size, feature_sim.shape[1]), device=feature_sim.device)
+            
+            for start in range(batch_size-1):
+                cum_similarity = torch.cumprod(feature_sim[start:] > tau, dim=0)
+                similarity_matrix[start, start+1:start+1+len(cum_similarity)] = cum_similarity
+            
+            window_lengths = torch.arange(batch_size, device=feature_sim.device).unsqueeze(0) - \
+                           torch.arange(batch_size, device=feature_sim.device).unsqueeze(1)
+            window_lengths = window_lengths.clamp(min=0)
+            
+            pruned_static_count = (similarity_matrix.sum(dim=-1) * window_lengths).float()
+            return pruned_static_count
         
+        pruned_static_count = get_pruned_static_count_vectorized(feature_sim, batch_size, tau)
+                
         dp = torch.zeros(batch_size, device=pruned_static_count.device)
         prev = torch.zeros(batch_size, dtype=torch.long, device=pruned_static_count.device)
         # [prev[i], i]

@@ -3,3 +3,12 @@ __pycache__/
 
 LLaVA_OneVision.py
 logs/
+.vscode/
+backup/
+table/
+
+*.py
+!example.py
+
+get_table.sh
+download.sh
