@@ -25,7 +25,7 @@
 
 #### 🔥🔥🔥 News
 
-- **2025-09-20:** HoliTom has been accepted by NeurIPS'25 🎉
+- **2025-09-20:** HoliTom has been accepted by **NeurIPS'25** 🎉
 - **2025-05-28:** The repo, paper, and webpage is released.
 
 ## Introduction
