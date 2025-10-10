@@ -113,10 +113,10 @@ If you have any questions, please feel free to contact with me at shaokele [at] 
 If you find this work useful for your research, please consider citing our paper:
 
 ```bibtex
-@article{shao2025holitom,
-  title={HoliTom: Holistic Token Merging for Fast Video Large Language Models}, 
-  author={Kele Shao and Keda Tao and Can Qin and Haoxuan You and Yang Sui and Huan Wang},
-  journal={arXiv preprint arXiv:2505.21334},
-  year={2025},
+@inproceedings{shao2025holitom,
+  title={Holitom: Holistic token merging for fast video large language models},
+  author={Shao, Kele and Tao, Keda and Qin, Can and You, Haoxuan and Sui, Yang and Wang, Huan},
+  booktitle=NeurIPS,
+  year={2025}
 }
 ```
