@@ -116,7 +116,7 @@ If you find this work useful for your research, please consider citing our paper
 @inproceedings{shao2025holitom,
   title={Holitom: Holistic token merging for fast video large language models},
   author={Shao, Kele and Tao, Keda and Qin, Can and You, Haoxuan and Sui, Yang and Wang, Huan},
-  booktitle=NeurIPS,
+  booktitle={NeurIPS},
   year={2025}
 }
 ```
